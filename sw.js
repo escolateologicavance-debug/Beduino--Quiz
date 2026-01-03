@@ -8,7 +8,8 @@ const FILES_TO_CACHE = [
   "./quiz2.html",
   "./quiz3.html",
   "./quiz4.html",
-  "./quiz5.html"
+  "./quiz5.html",
+  ".quiz_curiosidades.html"
 ];
 
 self.addEventListener("install", event => {
