@@ -1,4 +1,4 @@
-const CACHE_NAME = "beduino-quiz-v1";
+const CACHE_NAME = "beduino-v3";
 
 const FILES_TO_CACHE = [
   "./",
