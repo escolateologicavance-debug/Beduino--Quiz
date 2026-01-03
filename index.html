@@ -1,6 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEDUÍNO QUIZ</title>
+    
+    <link rel="manifest" href="manifest.json">
+    
+    <meta name="theme-color" content="#1a2a3a">
+    
+    <link rel="apple-touch-icon" href="logo-192.png">
+
+    <style>
+        /* Seu CSS permanece igual */
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a2a3a 0%, #0d141d 100%); color: #f0ead6; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; text-align: center; }
+        /* ... restante do estilo ... */
+    </style>
+</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BEDUÍNO QUIZ</title>
@@ -35,5 +52,13 @@
         function abrirMenu() { document.getElementById('painel').style.display = 'flex'; }
         function fecharMenu() { document.getElementById('painel').style.display = 'none'; }
     </script>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log("Serviço registrado com sucesso."))
+      .catch(err => console.log("Falha ao registrar serviço:", err));
+  }
+</script>
+
 </body>
 </html>
