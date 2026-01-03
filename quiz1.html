@@ -36,7 +36,6 @@
         .correct { background-color: #28a745 !important; }
         .wrong { background-color: #dc3545 !important; }
         
-        /* TROFÉU DINÂMICO */
         #trofeu-container { 
             display: none; 
             animation: surge 0.8s cubic-bezier(0.17, 0.89, 0.32, 1.49); 
@@ -67,7 +66,7 @@
         <div style="color: #ffd700; font-size: 25px;">✨ ★ ★ ★ ✨</div>
         <div style="font-size: 80px; margin: 15px 0;">🏆</div>
         <h2 style="color: #ffd700; margin-bottom: 20px;">QUALIFICAÇÃO MÁXIMA!</h2>
-        <a href="quiz_geral2.html" class="btn-opcao" style="background: #28a745;">AVANÇAR PARA GERAL 2</a>
+        <a href="quiz2.html" class="btn-opcao" style="background: #28a745;">AVANÇAR PARA GERAL 2</a>
     </div>
 
     <div class="autor">Gilberto Moreira</div>
@@ -88,7 +87,7 @@
     ];
 
     let indice = 0;
-    let acertos = 0; // CONTADOR DE ACERTOS
+    let acertos = 0;
 
     function carregar() {
         const item = perguntas[indice];
@@ -106,7 +105,7 @@
                 btns.forEach(btn => btn.disabled = true);
                 if(opt === item.r) {
                     b.classList.add("correct");
-                    acertos++; // SOMA ACERTO
+                    acertos++;
                 } else {
                     b.classList.add("wrong");
                 }
@@ -121,20 +120,17 @@
         if (indice < perguntas.length) {
             carregar();
         } else {
-            // ESCONDE O BOX DE PERGUNTAS
             document.getElementById("pergunta-box").style.display = "none";
             
-            // REGRA DO TROFÉU (SÓ 10/10)
             if (acertos === 10) {
                 document.getElementById("trofeu-container").style.display = "block";
             } else {
-                // SE NÃO ACERTOU TUDO, SÓ MOSTRA O BOTÃO DE AVANÇAR COMUM
                 const container = document.querySelector(".quiz-container");
                 const finalBtn = document.createElement("div");
                 finalBtn.innerHTML = `
                     <h2>Módulo Concluído</h2>
                     <p>Você acertou ${acertos} de 10.</p>
-           <a href="quiz2.html?v=1.1" class="menu-btn">AVANCE</a>
+                    <a href="quiz2.html" class="btn-opcao" style="background:#28a745">AVANÇAR PARA GERAL 2</a>
                 `;
                 container.insertBefore(finalBtn, document.querySelector(".autor"));
             }
