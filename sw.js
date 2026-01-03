@@ -1,17 +1,20 @@
-const CACHE_NAME = "beduino-v4";
+consconst CACHE_NAME = "beduino-v8";
 
 const FILES_TO_CACHE = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./quiz1.html",
-  "./quiz2.html",
-  "./quiz3.html",
-  "./quiz4.html",
-  "./quiz5.html",
-  "./quiz_curiosidades.html"
+  "/Beduino--Quiz/",
+  "/Beduino--Quiz/index.html",
+  "/Beduino--Quiz/manifest.json",
+  "/Beduino--Quiz/quiz1.html",
+  "/Beduino--Quiz/quiz2.html",
+  "/Beduino--Quiz/quiz3.html",
+  "/Beduino--Quiz/quiz4.html",
+  "/Beduino--Quiz/quiz5.html",
+  "/Beduino--Quiz/quiz_curiosidades.html",
+  "/Beduino--Quiz/logo-192.png",
+  "/Beduino--Quiz/logo-512.png"
 ];
 
+// INSTALA E CACHEIA
 self.addEventListener("install", event => {
   self.skipWaiting();
   event.waitUntil(
@@ -19,20 +22,35 @@ self.addEventListener("install", event => {
   );
 });
 
+// ATIVA E LIMPA CACHES ANTIGOS
 self.addEventListener("activate", event => {
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
         keys.map(key => {
-          if (key !== CACHE_NAME) return caches.delete(key);
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
         })
       )
-    ).then(() => self.clients.claim())
+    )
   );
+  self.clients.claim();
 });
 
+// FETCH — NÃO INTERCEPTA NAVEGAÇÃO HTML
 self.addEventListener("fetch", event => {
+
+  // navegação entre páginas HTML
+  if (event.request.mode === "navigate") {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+
+  // demais recursos (css, js, imagens)
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });
