@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beduino - Geral</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0d1b2a;
+            color: #f0ead6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #d4a373;
+        }
+        .btn-opcao {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: #3a5a7a;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: 0.3s;
+        }
+        .correct { background: #28a745 !important; }
+        .wrong { background: #dc3545 !important; }
+
+        #trofeu-container {
+            display: none;
+            animation: pop 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+            margin: 20px 0;
+        }
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 25px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        footer {
+            font-family: Arial Black;
+            font-size: 16px;
+            color: #d4a373;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+        h2 {
+            color: #87ceeb;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div id="quiz-content">
+        <h2 id="pergunta"></h2>
+        <div id="opcoes"></div>
+    </div>
+
+    <div id="trofeu-container">
+        <div class="stars">★ ★ ★</div>
+        <div style="font-size:80px;">🏆</div>
+        <h2 style="color:#ffd700;">QUALIFICAÇÃO MÁXIMA!</h2>
+        <p>Excelente aproveitamento nos conhecimentos gerais.</p>
+        <a href="quiz3.html"
+           class="btn-opcao"
+           style="background:#28a745;text-decoration:none;">
+           AVANÇAR
+        </a>
+    </div>
+
+    <footer>GILBERTO MOREIRA</footer>
+</div>
+
+<script>
+const perguntas = [
+    { q: "Qual o maior planeta do Sistema Solar?", o: ["Terra", "Júpiter", "Saturno"], r: "Júpiter" },
+    { q: "Em que continente fica o deserto do Saara?", o: ["Ásia", "África", "Oceania"], r: "África" },
+    { q: "Qual o processo pelo qual as plantas produzem alimento?", o: ["Respiração", "Digestão", "Fotossíntese"], r: "Fotossíntese" },
+    { q: "Quem pintou a Monalisa?", o: ["Van Gogh", "Leonardo da Vinci", "Picasso"], r: "Leonardo da Vinci" },
+    { q: "Qual a capital da França?", o: ["Londres", "Berlim", "Paris"], r: "Paris" },
+    { q: "Quantos ossos tem um corpo humano adulto?", o: ["150", "206", "300"], r: "206" },
+    { q: "Qual oceano banha o litoral do Brasil?", o: ["Pacífico", "Índico", "Atlântico"], r: "Atlântico" },
+    { q: "Quem foi o primeiro homem a pisar na Lua?", o: ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin"], r: "Neil Armstrong" },
+    { q: "Qual o metal cujo símbolo químico é Au?", o: ["Prata", "Cobre", "Ouro"], r: "Ouro" },
+    { q: "Qual o país com a maior população do mundo?", o: ["Índia", "China", "EUA"], r: "Índia" }
+];
+
+let indice = 0;
+let acertos = 0;
+
+function carregar() {
+    const p = perguntas[indice];
+    document.getElementById("pergunta").innerText = p.q;
+    const box = document.getElementById("opcoes");
+    box.innerHTML = "";
+
+    p.o.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "btn-opcao";
+        btn.innerText = opt;
+        btn.onclick = () => {
+            document.querySelectorAll(".btn-opcao").forEach(b => b.disabled = true);
+            if (opt === p.r) {
+                btn.classList.add("correct");
+                acertos++;
+            } else {
+                btn.classList.add("wrong");
+            }
+            setTimeout(proxima, 800);
+        };
+        box.appendChild(btn);
+    });
+}
+
+function proxima() {
+    indice++;
+    if (indice < perguntas.length) {
+        carregar();
+    } else {
+        document.getElementById("quiz-content").style.display = "none";
+        if (acertos === perguntas.length) {
+            document.getElementById("trofeu-container").style.display = "block";
+        } else {
+            document.getElementById("quiz-content").innerHTML = `
+                <h2>Fim de Etapa</h2>
+                <p>Você acertou ${acertos}/10.</p>
+                <a href="quiz3.html"
+                   class="btn-opcao"
+                   style="background:#28a745;text-decoration:none;">
+                   AVANÇAR
+                </a>
+            `;
+            document.getElementById("quiz-content").style.display = "block";
+        }
+    }
+}
+
+carregar();
+</script>
+</body>
+</html>

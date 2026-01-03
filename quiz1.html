@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beduíno - Geral 1</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d141d 100%);
+            color: #f0ead6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(135, 206, 235, 0.2);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+        }
+        .autor { font-family: 'Arial Black'; font-size: 16px; color: #d4a373; margin-top: 20px; text-transform: uppercase; }
+        h2 { color: #87ceeb; font-size: 1.2em; margin-bottom: 25px; }
+        .btn-opcao {
+            display: block; width: 100%; padding: 15px; margin: 10px 0;
+            background-color: #3a5a7a; color: white; border: none;
+            border-radius: 50px; font-size: 1em; font-weight: bold;
+            cursor: pointer; text-decoration: none;
+        }
+        .correct { background-color: #28a745 !important; }
+        .wrong { background-color: #dc3545 !important; }
+        
+        /* TROFÉU DINÂMICO */
+        #trofeu-container { 
+            display: none; 
+            animation: surge 0.8s cubic-bezier(0.17, 0.89, 0.32, 1.49); 
+        }
+        @keyframes surge { 
+            from { transform: scale(0); opacity: 0; } 
+            to { transform: scale(1); opacity: 1; } 
+        }
+
+        #btn-proxima {
+            background-color: #28a745; color: white; padding: 15px;
+            border: none; border-radius: 50px; width: 100%;
+            margin-top: 20px; display: none; cursor: pointer; font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    
+    <div id="pergunta-box">
+        <h2 id="texto-pergunta">Carregando...</h2>
+        <div id="opcoes-box"></div>
+        <button id="btn-proxima" onclick="proxima()">PRÓXIMA PERGUNTA</button>
+    </div>
+
+    <div id="trofeu-container">
+        <div style="color: #ffd700; font-size: 25px;">✨ ★ ★ ★ ✨</div>
+        <div style="font-size: 80px; margin: 15px 0;">🏆</div>
+        <h2 style="color: #ffd700; margin-bottom: 20px;">QUALIFICAÇÃO MÁXIMA!</h2>
+        <a href="quiz_geral2.html" class="btn-opcao" style="background: #28a745;">AVANÇAR PARA GERAL 2</a>
+    </div>
+
+    <div class="autor">Gilberto Moreira</div>
+</div>
+
+<script>
+    const perguntas = [
+        { q: "Qual civilização construiu as pirâmides de Gizé?", o: ["Gregos", "Egípcios", "Romanos"], r: "Egípcios" },
+        { q: "Qual o maior osso do corpo humano?", o: ["Fêmur", "Tíbia", "Rádio"], r: "Fêmur" },
+        { q: "Qual país tem o maior número de vulcões ativos?", o: ["Japão", "Indonésia", "Brasil"], r: "Indonésia" },
+        { q: "Em que ano o homem pisou na Lua pela primeira vez?", o: ["1965", "1969", "1972"], r: "1969" },
+        { q: "Qual gás é essencial para a nossa respiração?", o: ["Nitrogênio", "Oxigênio", "Gás Carbônico"], r: "Oxigênio" },
+        { q: "Onde se localiza o Estreito de Gibraltar?", o: ["Entre Brasil e África", "Entre Europa e África", "Entre Ásia e Europa"], r: "Entre Europa e África" },
+        { q: "Quem descobriu a Penicilina?", o: ["Alexander Fleming", "Louis Pasteur", "Einstein"], r: "Alexander Fleming" },
+        { q: "Qual o rio mais longo do mundo?", o: ["Nilo", "Amazonas", "Mississipi"], r: "Amazonas" },
+        { q: "O que estuda a Botânica?", o: ["Animais", "Plantas", "Rochas"], r: "Plantas" },
+        { q: "Qual evento marcou o fim da Idade Média?", o: ["Queda de Constantinopla", "Revolução Francesa", "Descoberta do Brasil"], r: "Queda de Constantinopla" }
+    ];
+
+    let indice = 0;
+    let acertos = 0; // CONTADOR DE ACERTOS
+
+    function carregar() {
+        const item = perguntas[indice];
+        document.getElementById("texto-pergunta").innerText = item.q;
+        const box = document.getElementById("opcoes-box");
+        box.innerHTML = "";
+        document.getElementById("btn-proxima").style.display = "none";
+
+        item.o.forEach(opt => {
+            const b = document.createElement("button");
+            b.innerText = opt;
+            b.className = "btn-opcao";
+            b.onclick = () => {
+                const btns = document.querySelectorAll(".btn-opcao");
+                btns.forEach(btn => btn.disabled = true);
+                if(opt === item.r) {
+                    b.classList.add("correct");
+                    acertos++; // SOMA ACERTO
+                } else {
+                    b.classList.add("wrong");
+                }
+                document.getElementById("btn-proxima").style.display = "block";
+            };
+            box.appendChild(b);
+        });
+    }
+
+    function proxima() {
+        indice++;
+        if (indice < perguntas.length) {
+            carregar();
+        } else {
+            // ESCONDE O BOX DE PERGUNTAS
+            document.getElementById("pergunta-box").style.display = "none";
+            
+            // REGRA DO TROFÉU (SÓ 10/10)
+            if (acertos === 10) {
+                document.getElementById("trofeu-container").style.display = "block";
+            } else {
+                // SE NÃO ACERTOU TUDO, SÓ MOSTRA O BOTÃO DE AVANÇAR COMUM
+                const container = document.querySelector(".quiz-container");
+                const finalBtn = document.createElement("div");
+                finalBtn.innerHTML = `
+                    <h2>Módulo Concluído</h2>
+                    <p>Você acertou ${acertos} de 10.</p>
+                    <a href="quiz_geral2.html" class="btn-opcao" style="background:#28a745">IR PARA O GERAL 2</a>
+                `;
+                container.insertBefore(finalBtn, document.querySelector(".autor"));
+            }
+        }
+    }
+    carregar();
+</script>
+</body>
+</html>

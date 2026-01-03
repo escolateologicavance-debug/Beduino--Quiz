@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz 4 - Conhecimentos Gerais</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #0d1b2a;
+            color: #f0ead6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background: rgba(0,0,0,0.4);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #d4a373;
+        }
+        .btn-opcao {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: #3a5a7a;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+        }
+        .correct { background: #28a745 !important; }
+        .wrong { background: #dc3545 !important; }
+
+        #trofeu-container {
+            display: none;
+            animation: pop 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+            margin: 20px 0;
+        }
+        @keyframes pop {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 25px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        footer {
+            font-family: Arial Black;
+            font-size: 16px;
+            color: #d4a373;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+        h2 {
+            color: #87ceeb;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div id="quiz-content">
+        <h2 id="pergunta"></h2>
+        <div id="opcoes"></div>
+    </div>
+
+    <div id="trofeu-container">
+        <div class="stars">★ ★ ★</div>
+        <div style="font-size:80px;">🏆</div>
+        <h2 style="color:#ffd700;">QUALIFICACAO MAXIMA!</h2>
+        <p>Etapa concluida com excelencia.</p>
+        <a href="quiz5.html"
+           class="btn-opcao"
+           style="background:#28a745;text-decoration:none;">
+           AVANCAR
+        </a>
+    </div>
+
+    <footer>GILBERTO MOREIRA</footer>
+</div>
+
+<script>
+const perguntas = [
+    // CIENCIA
+    { q: "Qual planeta e conhecido como planeta vermelho?", o: ["Marte", "Venus", "Jupiter"], r: "Marte" },
+    { q: "Qual e a unidade basica da vida?", o: ["Atomo", "Celula", "Tecido"], r: "Celula" },
+    { q: "Qual cientista formulou a teoria da relatividade?", o: ["Newton", "Einstein", "Galileu"], r: "Einstein" },
+
+    // CULTURA GERAL
+    { q: "Quantas cores tem o arco-iris tradicional?", o: ["5", "6", "7"], r: "7" },
+    { q: "Qual instrumento mede terremotos?", o: ["Termometro", "Sismografo", "Barometro"], r: "Sismografo" },
+    { q: "Qual idioma tem mais falantes nativos no mundo?", o: ["Ingles", "Espanhol", "Mandarim"], r: "Mandarim" },
+
+    // ATUALIDADES / SOCIEDADE
+    { q: "Qual fonte de energia e considerada renovavel?", o: ["Carvao", "Petroleo", "Solar"], r: "Solar" },
+    { q: "Qual e o maior orgao do corpo humano?", o: ["Coracao", "Pele", "Pulmao"], r: "Pele" },
+    { q: "Qual pais sediou a Copa do Mundo de 2014?", o: ["Africa do Sul", "Brasil", "Alemanha"], r: "Brasil" },
+    { q: "Qual tecnologia permite chamadas por video na internet?", o: ["Bluetooth", "VoIP", "GPS"], r: "VoIP" }
+];
+
+let indice = 0;
+let acertos = 0;
+
+function carregar() {
+    const p = perguntas[indice];
+    document.getElementById("pergunta").innerText = p.q;
+    const box = document.getElementById("opcoes");
+    box.innerHTML = "";
+
+    p.o.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.className = "btn-opcao";
+        btn.innerText = opt;
+        btn.onclick = () => {
+            document.querySelectorAll(".btn-opcao").forEach(b => b.disabled = true);
+            if (opt === p.r) {
+                btn.classList.add("correct");
+                acertos++;
+            } else {
+                btn.classList.add("wrong");
+            }
+            setTimeout(proxima, 800);
+        };
+        box.appendChild(btn);
+    });
+}
+
+function proxima() {
+    indice++;
+    if (indice < perguntas.length) {
+        carregar();
+    } else {
+        document.getElementById("quiz-content").style.display = "none";
+        if (acertos === perguntas.length) {
+            document.getElementById("trofeu-container").style.display = "block";
+        } else {
+            document.getElementById("quiz-content").innerHTML = `
+                <h2>Fim da Etapa</h2>
+                <p>Voce acertou ${acertos}/10.</p>
+                <a href="quiz5.html"
+                   class="btn-opcao"
+                   style="background:#28a745;text-decoration:none;">
+                   AVANCAR
+                </a>
+            `;
+            document.getElementById("quiz-content").style.display = "block";
+        }
+    }
+}
+
+carregar();
+</script>
+</body>
+</html>
