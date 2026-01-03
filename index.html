@@ -1,39 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BEDUÍNO QUIZ</title>
-    <link rel="manifest" href="manifest.json">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #1a2a3a 0%, #0d141d 100%);
-            color: #f0ead6;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-        .header-title {
-            font-family: 'Georgia', serif; /* Fonte bonita e clássica */
-            font-size: 3.5em;
-            letter-spacing: 5px;
-            color: #d4a373;
-            margin: 0;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
-        .sub-title {
-            font-size: 1.5em;
-            color: #87ceeb;
-            margin-top: -10px;
-            margin-bottom: 40px;
-            font-weight: 300;
-            letter-spacing: 8px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BEDUÍNO QUIZ</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #1a2a3a 0%, #0d141d 100%);
+    color: #f0ead6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.header-title {
+    font-family: 'Georgia', serif;
+    font-size: 3.5em;
+    letter-spacing: 5px;
+    color: #d4a373;
+    margin: 0;
+}
+
+.sub-title {
+    font-size: 1.5em;
+    color: #87ceeb;
+    margin-bottom: 40px;
+    letter-spacing: 8px;
+}
+
+.menu-btn {
+    width: 280px;
+    padding: 20px;
+    margin: 15px 0;
+    background-color: #d4a373;
+    color: #1a2a3a;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.2em;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.menu-btn.menu {
+    background-color: #3a5a7a;
+    color: white;
+}
+
+footer {
+    position: absolute;
+    bottom: 20px;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 16px;
+    color: #d4a373;
+}
+
+/* PAINEL MENU */
+#painel {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    color: #f0ead6;
+    padding: 30px;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+#painel h2 {
+    color: #d4a373;
+    margin-top: 40px;
+}
+
+#painel p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<h1 class="header-title">BEDUÍNO</h1>
+<div class="sub-title">QUIZ</div>
+
+<a href="quiz1.html" class="menu-btn">AVANCE</a>
+
+<button class="menu-btn menu" onclick="abrirMenu()">MENU</button>
+
+<footer>GILBERTO MOREIRA</footer>
+
+<div id="painel">
+    <h2>CONHECIMENTOS GERAIS</h2>
+
+    <p>
+        Acertando <b>10/10</b> o troféu 🏆 aparece.
+    </p>
+
+    <p>
+        Edição Beduíno — Franquia Faculdade Teológica AVANCE<br>
+        “Ultrapassando limites”
+    </p>
+
+    <p>
+        Outros aplicativos exclusivamente via WhatsApp<br>
+        📞 66 98466-6186
+    </p>
+
+    <br>
+    <button class="menu-btn" onclick="fecharMenu()">FECHAR</button>
+</div>
+
+<script>
+function abrirMenu(){
+    document.getElementById('painel').style.display = 'block';
+}
+
+function fecharMenu(){
+    document.getElementById('painel').style.display = 'none';
+}
+</script>
+
+</body>
+</html>
         .menu-btn {
             display: block; width: 280px; padding: 20px; margin: 15px 0;
             background-color: #d4a373; color: #1a2a3a;
