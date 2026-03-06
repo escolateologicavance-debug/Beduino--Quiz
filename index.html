@@ -1,42 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BEDUÍNO QUIZ</title>
     
     <link rel="manifest" href="manifest.json">
-    
     <meta name="theme-color" content="#1a2a3a">
-
     <link rel="apple-touch-icon" href="logo-512.png">
 
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+          .then(() => console.log("Serviço Ativo"))
+          .catch(err => console.log("Erro SW:", err));
+      }
+    </script>
+
     <style>
-        /* Seu CSS permanece igual */
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a2a3a 0%, #0d141d 100%); color: #f0ead6; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; text-align: center; }
-        /* ... restante do estilo ... */
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d141d 100%); 
+            color: #f0ead6; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            text-align: center; 
+        }
+        .header-title { font-family: 'Georgia', serif; font-size: 3.5em; letter-spacing: 5px; color: #d4a373; margin: 0; }
+        .sub-title { font-size: 1.5em; color: #87ceeb; margin-bottom: 40px; letter-spacing: 8px; }
+        .menu-btn { width: 280px; padding: 20px; margin: 15px 0; background-color: #d4a373; color: #1a2a3a; border-radius: 50px; font-weight: bold; font-size: 1.2em; border: none; cursor: pointer; text-transform: uppercase; text-decoration: none; display: inline-block; }
+        .menu-btn.menu { background-color: #3a5a7a; color: white; }
+        footer { font-family: 'Arial Black'; font-size: 16px; color: #d4a373; margin-top: 20px; }
+        #painel { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); padding: 30px; box-sizing: border-box; z-index: 999; flex-direction: column; justify-content: center; align-items: center; }
+        .logo-top { display: block; margin: 0 auto 20px auto; max-width: 192px; height: auto; }
     </style>
-        
-<style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a2a3a 0%, #0d141d 100%); color: #f0ead6; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; text-align: center; }
-    .header-title { font-family: 'Georgia', serif; font-size: 3.5em; letter-spacing: 5px; color: #d4a373; margin: 0; }
-    .sub-title { font-size: 1.5em; color: #87ceeb; margin-bottom: 40px; letter-spacing: 8px; }
-    .menu-btn { width: 280px; padding: 20px; margin: 15px 0; background-color: #d4a373; color: #1a2a3a; border-radius: 50px; font-weight: bold; font-size: 1.2em; border: none; cursor: pointer; text-transform: uppercase; text-decoration: none; display: inline-block; }
-    .menu-btn.menu { background-color: #3a5a7a; color: white; }
-    footer { position: absolute; bottom: 20px; font-family: 'Arial Black'; font-size: 16px; color: #d4a373; }
-    #painel { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); padding: 30px; box-sizing: border-box; z-index: 999; flex-direction: column; justify-content: center; align-items: center; }
-</style>
 </head>
 <body>
-       <div class="container" style="text-align: center;">
-    <img src="logo-512.png" alt="Beduíno" class="logo-top" style="display: block; margin: 0 auto; max-width: 100%;">
-    <h1 class="header-title">BEDUÍNO</h1>
-    <div class="sub-title">QUIZ</div>
-    <a href="quiz1.html?v=1.1" class="menu-btn">AVANCE</a>
-    <button class="menu-btn menu" onclick="abrirMenu()">MENU</button>    
-<footer style="text-align: center; margin-top: 20px; width: 100%;">GILBERTO MOREIRA</footer>
-       </div>
+    <div class="container">
+        <img src="logo-512.png" alt="Beduíno" class="logo-top">
+        <h1 class="header-title">BEDUÍNO</h1>
+        <div class="sub-title">QUIZ</div>
+        <a href="quiz1.html?v=1.1" class="menu-btn">AVANCE</a>
+        <button class="menu-btn menu" onclick="abrirMenu()">MENU</button>    
+        <footer>GILBERTO MOREIRA</footer>
+    </div>
 
     <div id="painel">
         <h2>CONHECIMENTOS GERAIS</h2>
@@ -50,13 +61,5 @@
         function abrirMenu() { document.getElementById('painel').style.display = 'flex'; }
         function fecharMenu() { document.getElementById('painel').style.display = 'none'; }
     </script>
-    <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js')
-      .then(() => console.log("Serviço registrado com sucesso."))
-      .catch(err => console.log("Falha ao registrar serviço:", err));
-  }
-</script>
-
 </body>
 </html>
