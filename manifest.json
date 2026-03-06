@@ -1,15 +1,15 @@
-{{
-  "background_color": "#ffffff",
-  "dir": "ltr",
-  "display": "standalone",
-  "name": "Beduino Quiz QI",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "beduino-app",
-  "start_url": "/",
-  "theme_color": "#ffffff",
-  "id": "com.faculdadeavance.beduino",
+{
+  "name": "Beduíno Quiz QI",
+  "short_name": "Beduíno",
   "description": "Quiz de Conhecimentos Gerais.",
+  "id": "com.faculdadeavance.beduino",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#1a2a3a",
+  "theme_color": "#d4a373",
+  "orientation": "portrait",
+  "dir": "ltr",
+  "scope": "./",
   "icons": [
     {
       "src": "logo-192.png",
